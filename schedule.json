@@ -1,0 +1,76 @@
+{
+  "Monday": [
+    ["07:00","08:00","Wake up · Breakfast","life"],
+    ["08:00","09:00","Physio / Psychologist","life"],
+    ["09:00","10:30","Study time","study"],
+    ["10:45","13:30","Class","study"],
+    ["13:30","14:00","Lunch with professors","life"],
+    ["14:30","15:00","Boat rigging · clothing","sail"],
+    ["15:00","18:00","Sailing training · 3 h","sail","main"],
+    ["18:00","19:00","De-rig · debriefing","sail"],
+    ["20:30","21:30","Dinner","life"]
+  ],
+  "Tuesday": [
+    ["07:00","08:00","Wake up · Breakfast","life"],
+    ["08:00","10:00","Study time","study"],
+    ["10:45","14:45","Class","study"],
+    ["14:45","15:45","Lunch","life"],
+    ["15:45","17:15","Gym (with Oriol)","gym","main"],
+    ["17:30","19:30","Class","study"],
+    ["20:30","21:30","Dinner","life"]
+  ],
+  "Wednesday": [
+    ["07:00","08:00","Wake up · Breakfast","life"],
+    ["08:00","09:30","Gym (without Oriol)","gym"],
+    ["09:45","10:45","Study time","study"],
+    ["10:45","13:30","Class","study"],
+    ["13:30","14:00","Lunch with professors","life"],
+    ["14:30","15:00","Boat rigging · clothing","sail"],
+    ["15:00","18:00","Sailing training · 3 h","sail","main"],
+    ["18:00","19:00","De-rig · debriefing","sail"],
+    ["20:30","21:30","Dinner","life"]
+  ],
+  "Thursday": [
+    ["07:00","08:00","Wake up · Breakfast","life"],
+    ["08:00","09:30","Gym (without Oriol)","gym"],
+    ["09:45","10:45","Study time","study"],
+    ["10:45","13:30","Class","study"],
+    ["13:30","14:00","Lunch with professors","life"],
+    ["14:30","15:00","Boat rigging · clothing","sail"],
+    ["15:00","18:00","Sailing training · 3 h","sail","main"],
+    ["18:00","19:00","De-rig · debriefing","sail"],
+    ["20:30","21:30","Dinner","life"]
+  ],
+  "Friday": [
+    ["07:00","08:00","Wake up · Breakfast","life"],
+    ["08:00","09:30","Gym (with Oriol)","gym","main"],
+    ["09:45","10:45","Study time","study"],
+    ["10:45","14:45","Class","study"],
+    ["14:45","15:45","Lunch","life"],
+    ["15:45","17:00","Class","study"],
+    ["17:30","19:30","Study time","study"],
+    ["20:30","21:30","Dinner","life"]
+  ],
+  "Saturday": [
+    ["09:00","09:30","Breakfast + lunch to take","life"],
+    ["10:00","10:30","Boat rigging","sail"],
+    ["10:30","11:00","Briefing · clothing","sail"],
+    ["11:00","14:30","Sailing training · 3.5 h","sail","main"],
+    ["14:30","15:30","De-rig · debriefing · boat work","sail"],
+    ["17:30","19:30","Gym (without Oriol)","gym"],
+    ["20:30","21:30","Dinner","life"]
+  ],
+  "Sunday": [
+    ["09:00","09:30","Breakfast + lunch to take","life"],
+    ["10:00","10:30","Boat rigging","sail"],
+    ["10:30","11:00","Briefing · clothing","sail"],
+    ["11:00","14:30","Sailing training · 3.5 h","sail","main"],
+    ["14:30","15:30","De-rig · debriefing · boat work","sail"],
+    ["17:30","19:30","Study time","study"],
+    ["20:30","21:30","Dinner","life"]
+  ],
+  "sail_windows": {
+    "Monday": ["15:00","18:00"], "Wednesday": ["15:00","18:00"], "Thursday": ["15:00","18:00"],
+    "Saturday": ["11:00","14:30"], "Sunday": ["11:00","14:30"]
+  }
+}

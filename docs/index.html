@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Briefing">
+<meta name="theme-color" content="#080B0E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<title>Morning Briefing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --ground:#080B0E; --surface:#11161B; --surface2:#182028; --line:#232C35;
+  --text:#EEF2F5; --muted:#8793A0; --faint:#56616D;
+  --green:#2EE87A; --yellow:#F6CB3C; --red:#FF4F63;
+  --sleep:#8EA6FF; --sea:#3CC8DC; --gym:#F6CB3C; --study:#6FD29B;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{background:var(--ground)}
+body{color:var(--text);font-family:var(--body);font-size:15px;line-height:1.45;padding-inline:16px;padding-block:20px 40px}
+.wrap{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.num{font-family:var(--display);font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+header{display:flex;justify-content:space-between;align-items:flex-end;padding:4px 2px 6px}
+header h1{font-family:var(--display);font-weight:700;font-size:26px;margin:0;letter-spacing:.02em;text-transform:uppercase}
+header .sub{color:var(--muted);font-size:13px}
+.card{background:var(--surface);border-radius:14px;padding:18px}
+.hero{display:flex;flex-direction:column;align-items:center;gap:6px;padding:26px 18px 20px}
+.ring{position:relative;width:220px;max-width:70vw;aspect-ratio:1}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .big{font-family:var(--display);font-weight:700;font-size:76px;line-height:.9}
+.ring .big small{font-size:32px;font-weight:600}
+.state{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:.12em;text-transform:uppercase;margin-top:6px}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;margin-top:16px}
+.mini{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.mini .r{width:64px;height:64px;position:relative}
+.mini svg{width:100%;height:100%;transform:rotate(-90deg)}
+.mini .v{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:19px}
+.mini .t{font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+.call{border-left:0;position:relative;overflow:hidden}
+.call .verdict{font-family:var(--display);font-weight:700;font-size:28px;text-transform:uppercase;letter-spacing:.03em;margin:4px 0 8px}
+.call p{margin:0 0 10px;color:#D5DCE2}
+.tip{display:flex;gap:10px;align-items:flex-start;background:var(--surface2);border-radius:10px;padding:10px 12px;font-size:14px;color:var(--text)}
+.tip b{color:var(--sea);font-weight:600;white-space:nowrap}
+.rows{display:flex;flex-direction:column;gap:14px;margin-top:12px}
+.row{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:baseline}
+.row .name{font-weight:500}
+.row .val{font-family:var(--display);font-weight:600;font-size:20px;text-align:right}
+.row .val .d{font-size:14px;margin-left:6px}
+.row .meta{font-size:12px;color:var(--muted)}
+.bar{grid-column:1/-1;height:6px;border-radius:3px;background:var(--surface2);position:relative;overflow:hidden}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
+.bar::after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--faint)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:520px){.two{grid-template-columns:1fr}}
+.chart{width:100%;height:auto;display:block;margin-top:10px}
+.stat{display:flex;align-items:baseline;gap:8px;margin-top:4px}
+.stat .num{font-size:30px;font-weight:700}
+.stat span{color:var(--muted);font-size:13px}
+.sched{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column}
+.sched li{display:grid;grid-template-columns:minmax(112px,auto) 1fr;gap:10px;padding:8px 0;border-top:1px solid var(--line);align-items:center}
+.sched li:first-child{border-top:0}
+.sched .tm{font-family:var(--display);font-size:16px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sched .ti{display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;flex:none}
+.sched li.main{background:linear-gradient(90deg,rgba(60,200,220,.14),transparent);border-radius:8px;padding-inline:8px;margin-inline:-8px;border-top-color:transparent}
+.sched li.main .ti{font-weight:600}
+.sched li.main .tm{color:var(--sea)}
+.windhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.windbig{display:flex;align-items:center;gap:14px;margin-top:8px}
+.windbig .num{font-size:44px;font-weight:700;line-height:1}
+.windbig .u{font-size:16px;color:var(--muted);font-family:var(--body)}
+.compass{width:58px;height:58px;flex:none}
+.tbl{overflow-x:auto;margin-top:14px}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:14px}
+th{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:right;padding:6px 6px}
+th:first-child,td:first-child{text-align:left}
+td{padding:8px 6px;border-top:1px solid var(--line);text-align:right}
+tr.in td{color:var(--text);font-weight:600} tr.out td{color:var(--muted)}
+.arrow{display:inline-block;color:var(--sea)}
+.na{color:var(--faint);font-style:normal}
+.note{font-size:12px;color:var(--muted);margin-top:10px}
+.pill{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:99px;background:var(--surface2);color:var(--muted)}
+footer{font-size:12px;color:var(--faint);text-align:center;padding-top:6px}
+.err{color:var(--muted);text-align:center;padding:40px 0}
+</style>
+<style>
+body{margin:0;padding-top:calc(20px + env(safe-area-inset-top,0px));padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
+.lock{max-width:360px;margin:18vh auto 0;display:flex;flex-direction:column;gap:14px;text-align:center}
+.lock h1{font-family:var(--display);font-weight:700;font-size:30px;text-transform:uppercase;letter-spacing:.03em;margin:0}
+.lock p{color:var(--muted);margin:0}
+.lock input{font:inherit;font-size:17px;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);outline:none}
+.lock input:focus-visible{border-color:var(--sea)}
+button{font:inherit;font-weight:600;font-size:16px;padding:14px 16px;border-radius:12px;border:0;background:var(--sea);color:#04161A;cursor:pointer}
+button:focus-visible{outline:2px solid var(--text);outline-offset:2px}
+.lock .bad{color:var(--red);font-size:14px;min-height:1.2em}
+.toolbar{display:flex;justify-content:center;gap:18px;font-size:12px}
+.toolbar a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+.stale{background:rgba(246,203,60,.12);color:var(--yellow);border-radius:10px;padding:10px 12px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"><div class="err">Loading…</div></div>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const KEY='briefing-pass';
+const store={get(){try{return localStorage.getItem(KEY)}catch(e){return null}},set(v){try{localStorage.setItem(KEY,v)}catch(e){}},del(){try{localStorage.removeItem(KEY)}catch(e){}}};
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function decrypt(enc,pass){
+  const base=await crypto.subtle.importKey('raw',new TextEncoder().encode(pass),'PBKDF2',false,['deriveKey']);
+  const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(enc.salt),iterations:enc.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+  const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(enc.iv)},key,b64(enc.ct));
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+function lock(msg){
+  $('#app').innerHTML=`<form class="lock" id="f"><h1>Morning Briefing</h1><p>Enter your passphrase. It stays on this iPhone.</p>
+  <input id="pw" type="password" autocomplete="current-password" placeholder="Passphrase" aria-label="Passphrase">
+  <button type="submit">Unlock</button><div class="bad">${msg||''}</div></form>`;
+  $('#f').addEventListener('submit',async e=>{e.preventDefault();const p=$('#pw').value;if(!p)return;
+    try{const d=await decrypt(ENC,p);store.set(p);render(d)}catch(err){lock('Wrong passphrase — try again.')}});
+  setTimeout(()=>{const i=$('#pw');if(i)i.focus()},50);
+}
+let ENC=null;
+async function boot(){
+  try{const r=await fetch('data.enc.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;ENC=await r.json()}
+  catch(e){$('#app').innerHTML='<div class="err">No briefing yet. Run the workflow once on GitHub, then reload.</div>';return}
+  const p=store.get();
+  if(p){try{return render(await decrypt(ENC,p))}catch(e){store.del()}}
+  lock();
+}
+
+const tone=s=>s==null?'faint':s>=67?'green':s>=34?'yellow':'red';
+const toneName={green:'Primed',yellow:'Steady',red:'Recover',faint:'No data'};
+const col=t=>`var(--${t})`;
+const na='<em class="na">n/a</em>';
+function ring(pct,color,r,w){const c=2*Math.PI*r;const d=Math.max(0,Math.min(1,pct||0))*c;
+  return `<svg viewBox="0 0 ${2*r+w} ${2*r+w}" aria-hidden="true"><circle cx="${r+w/2}" cy="${r+w/2}" r="${r}" fill="none" stroke="var(--surface2)" stroke-width="${w}"/><circle cx="${r+w/2}" cy="${r+w/2}" r="${r}" fill="none" stroke="${color}" stroke-width="${w}" stroke-linecap="round" stroke-dasharray="${d} ${c}"/></svg>`;}
+const compassDir=d=>d==null?'–':['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'][Math.round(d/22.5)%16];
+function fmtDelta(c){const diff=c.value-c.baseline;if(Math.abs(diff)<0.05)return{txt:'±0',good:null};
+  const good=c.better==='higher'?diff>0:diff<0;
+  const txt=c.unit==='h'?`${diff>0?'+':'−'}${Math.round(Math.abs(diff)*60)}m`:`${diff>0?'+':'−'}${Math.abs(Math.round(diff))}`;
+  return{txt,good};}
+const T=(x,y,s,c)=>`<text x="${x}" y="${y}" text-anchor="middle" font-size="10" fill="${c}" font-family="Barlow,system-ui">${s}</text>`;
+function bars(vals,labels,color,fmt){const W=260,H=110,pb=18,pt=16,ok=vals.filter(v=>v!=null);if(!ok.length)return '<p class="note">No data</p>';
+  const max=Math.max(...ok)*1.1,bw=W/vals.length;
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img">${vals.map((v,i)=>{const x=i*bw+bw*.2,last=i===vals.length-1;
+    if(v==null)return T(x+bw*.3,H-pb-4,'–','var(--faint)')+T(x+bw*.3,H-4,labels[i],'var(--muted)');
+    const h=(H-pb-pt)*v/max,y=H-pb-h;
+    return `<rect x="${x}" y="${y}" width="${bw*.6}" height="${h}" rx="3" fill="${color}" opacity="${last?1:.38}"/>`+T(x+bw*.3,y-4,fmt(v),last?'var(--text)':'var(--muted)')+T(x+bw*.3,H-4,labels[i],'var(--muted)')}).join('')}</svg>`;}
+function line(vals,labels,color){const W=260,H=110,pb=18,pt=18,px=14,ok=vals.filter(v=>v!=null);if(ok.length<2)return '<p class="note">Not enough data</p>';
+  const mn=Math.min(...ok)-2,mx=Math.max(...ok)+2,X=i=>px+i*(W-2*px)/(vals.length-1),Y=v=>pt+(H-pb-pt)*(1-(v-mn)/(mx-mn));
+  const P=vals.map((v,i)=>v==null?null:[X(i),Y(v)]).filter(Boolean),pts=P.map(p=>p.join(',')).join(' ');
+  const area=`${P[0][0]},${H-pb} ${pts} ${P[P.length-1][0]},${H-pb}`;
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img"><polygon points="${area}" fill="${color}" opacity=".12"/><polyline points="${pts}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round"/>${vals.map((v,i)=>{const last=i===vals.length-1;
+    return (v==null?'':`<circle cx="${X(i)}" cy="${Y(v)}" r="${last?4:2.5}" fill="${last?color:'var(--surface)'}" stroke="${color}" stroke-width="1.5"/>`+T(X(i),Y(v)-8,v,last?'var(--text)':'var(--muted)'))+T(X(i),H-4,labels[i],'var(--muted)')}).join('')}</svg>`;}
+const kindCol={sail:'var(--sea)',gym:'var(--gym)',study:'var(--study)',life:'var(--faint)'};
+const f1=v=>v==null?na:(+v).toFixed(1), f0=v=>v==null?na:Math.round(v);
+
+function render(D){
+  const R=D.recovery, t=tone(R.score), dt=new Date(D.date+'T12:00:00');
+  const dateStr=dt.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+  const S=D.sailing, win=S.win||['99:99','99:99'], H=S.hours||[];
+  const inWin=h=>h.t>=win[0]&&h.t<win[1];
+  const sess=H.filter(h=>(S.win?inWin(h):true)&&h.kn!=null);
+  const avgKn=sess.length?sess.reduce((a,h)=>a+h.kn,0)/sess.length:null;
+  const gusts=sess.map(h=>h.gust).filter(v=>v!=null), maxG=gusts.length?Math.max(...gusts):null;
+  const domDir=sess.length?sess[Math.floor(sess.length/2)].dir:(H[0]?H[0].dir:null);
+  const rhrGood=D.rhr.today!=null&&D.rhr.baseline!=null&&D.rhr.today<=D.rhr.baseline;
+  const stale=D.date!==new Date().toLocaleDateString('sv-SE',{timeZone:'Europe/Berlin'});
+  const L=D.load7;
+  $('#app').innerHTML=`
+  <header><div><div class="lbl">${dateStr}</div><h1>Morning Briefing</h1></div><div class="sub">Elias</div></header>
+  ${stale?`<div class="stale">This briefing is from ${dateStr}. Today's update hasn't run yet.</div>`:''}
+
+  <section class="card hero" aria-label="Recovery">
+    <div class="lbl">Recovery</div>
+    <div class="ring">${ring((R.score||0)/100,col(t),96,16)}
+      <div class="center"><div class="big num" style="color:${col(t)}">${R.score==null?'—':R.score+'<small>%</small>'}</div></div></div>
+    <div class="state" style="color:${col(t)}">${toneName[t]}</div>
+    <div class="note" style="margin-top:0">vs your ${R.baseline_days}-day baseline</div>
+    <div class="trio">
+      <div class="mini"><div class="r">${ring(D.sleep.hours&&D.sleep.need_hours?Math.min(D.sleep.hours/D.sleep.need_hours,1):0,'var(--sleep)',26,6)}<div class="v">${D.sleep.hours==null?'—':D.sleep.hours.toFixed(1)}</div></div><div class="t">Sleep h</div></div>
+      <div class="mini"><div class="r">${ring((D.body_battery.peak||0)/100,'var(--green)',26,6)}<div class="v">${D.body_battery.peak??'—'}</div></div><div class="t">Body Battery</div></div>
+      <div class="mini"><div class="r">${ring(D.rhr.today&&D.rhr.baseline?Math.min(D.rhr.baseline/D.rhr.today,1)*.9:0,rhrGood?'var(--green)':'var(--red)',26,6)}<div class="v">${D.rhr.today??'—'}</div></div><div class="t">RHR bpm</div></div>
+    </div>
+  </section>
+
+  <section class="card call" aria-label="Today's call">
+    <div class="lbl">Today's call</div>
+    <div class="verdict" style="color:${col(D.call.tone||'text')}">${D.call.verdict}</div>
+    <p>${D.call.text}</p>
+    <div class="tip"><b>Tip</b><span>${D.call.tip}</span></div>
+  </section>
+
+  ${R.components.length?`<section class="card" aria-label="Recovery contributors">
+    <div class="lbl">What's driving it</div>
+    <div class="rows">${R.components.map(c=>{const d=fmtDelta(c);const dc=d.good===null?'var(--muted)':d.good?'var(--green)':'var(--red)';const u=c.unit&&c.unit!=='h'?c.unit:'';
+      return `<div class="row"><div><div class="name">${c.label}</div><div class="meta">baseline ${c.baseline_display}${u?' '+u:''} · weight ${c.weight}%</div></div>
+      <div class="val">${c.display}${u?'<span style="font-size:13px;color:var(--muted)"> '+u+'</span>':''}<span class="d" style="color:${dc}">${d.txt}</span></div>
+      <div class="bar"><i style="width:${c.score}%;background:${c.score>=50?'var(--green)':'var(--red)'};opacity:.85"></i></div></div>`}).join('')}</div>
+    <div class="note">Centre line = your baseline. ${D.sleep.note}</div>
+  </section>`:''}
+
+  <div class="two">
+    <section class="card"><div class="lbl">Sleep · 7 days</div>
+      <div class="stat"><span class="num" style="color:var(--sleep)">${D.sleep.display||'—'}</span><span>${D.sleep.bed&&D.sleep.wake?D.sleep.bed+'–'+D.sleep.wake:''}</span></div>
+      ${bars(D.trend7.sleep,D.trend7.labels,'var(--sleep)',v=>v.toFixed(1))}</section>
+    <section class="card"><div class="lbl">Resting HR · 7 days</div>
+      <div class="stat"><span class="num" style="color:${rhrGood?'var(--green)':'var(--red)'}">${D.rhr.today??'—'}</span><span>bpm · baseline ${D.rhr.baseline??'–'}</span></div>
+      ${line(D.trend7.rhr,D.trend7.labels,'var(--green)')}</section>
+  </div>
+
+  <section class="card" aria-label="Sailing conditions">
+    <div class="windhead"><div><div class="lbl">On the water · ${S.window}</div><div style="color:var(--muted);font-size:13px;margin-top:2px">${S.spot}</div></div>${L?`<span class="pill">${L.sailing_sessions} sails · ${L.sailing_hours} h / 7 d</span>`:''}</div>
+    ${avgKn!=null||H.length?`<div class="windbig">
+      <svg class="compass" viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="27" fill="none" stroke="var(--line)" stroke-width="2"/>${T(30,10,'N','var(--muted)')}<g transform="rotate(${(domDir||0)+180} 30 30)"><path d="M30 12 L36 34 L30 30 L24 34 Z" fill="var(--sea)"/></g></svg>
+      <div><div class="num">${avgKn!=null?avgKn.toFixed(0):'–'}<span class="u"> kn avg${maxG!=null?' · gusts '+maxG.toFixed(0):''}</span></div><div style="color:var(--muted);font-size:13px">from ${compassDir(domDir)} · ${S.summary}</div></div></div>`:'<p class="na">Wind forecast unavailable</p>'}
+    ${H.length?`<div class="tbl"><table><thead><tr><th>Time</th><th>Wind</th><th>Gust</th><th>Dir</th><th>Wave</th><th>Air</th></tr></thead><tbody>
+      ${H.map(h=>`<tr class="${inWin(h)?'in':'out'}"><td>${h.t}</td><td>${f0(h.kn)}</td><td>${f0(h.gust)}</td><td><span class="arrow" style="transform:rotate(${(h.dir||0)+180}deg)">↑</span> ${compassDir(h.dir)}</td><td>${h.wave==null?na:h.wave.toFixed(1)+' m'}</td><td>${f0(h.temp)}°</td></tr>`).join('')}
+    </tbody></table></div><div class="note">Wind and gusts in knots. Bold rows = session window.</div>`:''}
+    <div class="two" style="margin-top:14px;gap:10px">
+      <div class="tip"><b>Waves</b><span>${S.waves||'<em class="na">Unavailable</em>'}</span></div>
+      <div class="tip"><b>Current</b><span>${S.current||'<em class="na">Unavailable</em>'}</span></div>
+    </div>
+    <div class="note">${S.unavailable_note||''} Source: ${S.sources.join(', ')}.</div>
+  </section>
+
+  <section class="card" aria-label="Today's schedule">
+    <div class="lbl">${D.weekday}'s plan</div>
+    <ul class="sched">${D.schedule.map(s=>`<li class="${s.main?'main':''}"><span class="tm">${s.time}–${s.end}</span><span class="ti"><span class="dot" style="background:${kindCol[s.kind]||'var(--faint)'}"></span>${s.title}</span></li>`).join('')}</ul>
+  </section>
+
+  <footer>Garmin Connect · Open-Meteo · updated ${new Date(D.generated).toLocaleString('en-GB',{weekday:'short',hour:'2-digit',minute:'2-digit',timeZone:'Europe/Berlin'})}<br>Recovery ≥67 primed · 34–66 steady · &lt;34 recover</footer>
+  <div class="toolbar"><a href="#" id="reload">Reload</a><a href="#" id="logout">Forget passphrase</a></div>`;
+  $('#reload').onclick=e=>{e.preventDefault();location.reload()};
+  $('#logout').onclick=e=>{e.preventDefault();store.del();lock()};
+}
+boot();
+})();
+</script>
+</body>
+</html>
